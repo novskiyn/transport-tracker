@@ -1,9 +1,13 @@
+from django.shortcuts import render
 from rest_framework import filters, viewsets
 from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated
 from .models import Route, Trip
 from .serializers import RouteSerializer, TripSerializer
+
+def index(request):
+    return render(request, 'index.html')
 
 class RoutePagination(PageNumberPagination):
     page_size = 10
