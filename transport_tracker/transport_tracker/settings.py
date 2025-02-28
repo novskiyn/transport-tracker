@@ -93,19 +93,12 @@ TIME_ZONE = 'Europe/Minsk'
 USE_I18N = True
 USE_TZ = True
 
-# Настройки статики
+import os
+
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',  # Глобальная статика
-    BASE_DIR / 'map' / 'static',  # Статика приложения map
-    BASE_DIR / 'tracking' / 'static',  # Статика приложения tracking
-]
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# Настройки медиа (если загружаются файлы)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

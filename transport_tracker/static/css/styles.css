@@ -1,0 +1,232 @@
+/* Общие стили */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+footer {
+    background: #111;
+    color: #fff;
+    padding: 40px 0;
+    text-align: center;
+}
+
+footer .footer-links {
+    margin-bottom: 20px;
+}
+
+footer .footer-links a {
+    margin: 0 15px;
+    color: #fff;
+    text-decoration: none;
+}
+
+footer .footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* Стили для хедера */
+header {
+    background: #000;
+    color: #fff;
+    padding: 20px 0;
+}
+
+header .logo a {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+}
+
+header nav ul {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    padding: 0;
+}
+
+header nav ul li {
+    margin-left: 30px;
+}
+
+header nav ul li a {
+    font-size: 1.2rem;
+    color: #fff;
+    text-decoration: none;
+}
+
+header nav ul li a.active {
+    font-weight: bold;
+}
+
+header .hamburger {
+    display: none;
+    cursor: pointer;
+    font-size: 2rem;
+    color: #fff;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    background: #0c0c0c;
+}
+
+/* Видео на заднем фоне */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.video-background video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(40%);
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.hero-content {
+    max-width: 900px;  /* Увеличиваем ширину */
+    background: rgba(0, 0, 0, 0.6);  /* темный полупрозрачный фон */
+    padding: 40px;  /* Увеличиваем отступы */
+    border-radius: 10px;
+    width: 100%;
+}
+
+.hero h1 {
+    font-size: 3.5rem;  /* Увеличиваем размер шрифта */
+    font-weight: 700;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.hero p {
+    font-size: 1.4rem;  /* Увеличиваем размер шрифта */
+    margin: 20px 0;
+    opacity: 0.9;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 1.4rem;  /* Увеличиваем размер кнопки */
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #ff8000, #ff4500);
+    color: #fff;
+    box-shadow: 0px 4px 10px rgba(255, 69, 0, 0.5);
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+}
+
+/* Features */
+.features {
+    text-align: center;
+    padding: 80px 20px;  /* Увеличиваем отступы */
+}
+
+.features-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.feature {
+    background: rgba(0, 0, 0, 0.6);  /* темный полупрозрачный фон */
+    padding: 30px;  /* Увеличиваем отступы */
+    border-radius: 10px;
+    width: 320px;  /* Увеличиваем ширину */
+    text-align: center;
+    transition: 0.3s;
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+}
+
+/* О компании */
+.about {
+    text-align: center;
+    padding: 100px 20px;  /* Увеличиваем отступы */
+}
+
+.about p {
+    background: rgba(0, 0, 0, 0.6);  /* темный полупрозрачный фон */
+    padding: 40px;  /* Увеличиваем отступы */
+    border-radius: 10px;
+    max-width: 800px;  /* Увеличиваем ширину */
+    margin: 0 auto;  /* Центрируем блок */
+    font-size: 1.3rem;  /* Увеличиваем размер текста */
+}
+
+/* Преимущества */
+.advantages {
+    text-align: center;
+    padding: 80px 20px;  /* Увеличиваем отступы */
+}
+
+.advantages-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.advantage {
+    background: rgba(0, 0, 0, 0.6);  /* темный полупрозрачный фон */
+    padding: 30px;  /* Увеличиваем отступы */
+    border-radius: 10px;
+    width: 320px;  /* Увеличиваем ширину */
+}
+
+/* Отзывы */
+.reviews {
+    text-align: center;
+    padding: 80px 20px;  /* Увеличиваем отступы */
+}
+
+.reviews-slider {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 10px;
+}
+
+.review {
+    background: rgba(0, 0, 0, 0.6);  /* темный полупрозрачный фон */
+    padding: 30px;  /* Увеличиваем отступы */
+    border-radius: 10px;
+    min-width: 320px;  /* Увеличиваем ширину */
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
