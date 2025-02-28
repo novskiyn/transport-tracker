@@ -1,5 +1,6 @@
 from django.db import models
 from django.apps import apps  
+from map.models import Trip
 from django.contrib.auth.models import User
 
 
@@ -23,6 +24,13 @@ class Driver(models.Model):
             self.rating = 0
             self.review_count = 0
         self.save()
+
+    def can_take_trip(self, departure_time, arrival_time):
+        trips = Trip.objects.filter(vehicle__driver=self)
+        for trip in trips:
+            if (departure_time < trip.arrival_time and arrival_time > trip.departure_time):
+                return False
+        return True    
 
 
 class DriverReview(models.Model):
