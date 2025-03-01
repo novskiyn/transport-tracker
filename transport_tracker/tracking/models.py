@@ -48,23 +48,34 @@ class DriverReview(models.Model):
         return f"Отзыв о {self.driver} от {self.user.username}: {self.rating} звезд"
 
 
+class VehicleType(models.Model):
+    name = models.CharField(max_length=100, unique=True)  # Название типа транспорта (например, грузовик, автобус)
+    brand = models.CharField(max_length=50, default='Unknown')  # Бренд типа транспорта
+    max_capacity = models.PositiveIntegerField(null=True, blank=True)  # Максимальная грузоподъемность в килограммах
+    year_of_manufacture = models.PositiveIntegerField(null=True, blank=True)  # Год выпуска типа транспорта
+    description = models.TextField(blank=True, null=True)  # Описание типа транспорта
+    image = models.ImageField(upload_to='vehicle_types/', null=True, blank=True)  # Изображение типа транспорта
+
+    def __str__(self):
+        return self.name
+
+
 class Vehicle(models.Model):
-    vehicle_number = models.CharField(max_length=50)
-    current_location = models.CharField(max_length=255)
+    vehicle_number = models.CharField(max_length=50)  # Номер транспортного средства
+    current_location = models.CharField(max_length=255)  # Текущее местоположение
     status = models.CharField(max_length=20, choices=[
         ('active', 'Active'),
         ('inactive', 'Inactive'),
         ('on_route', 'On Route'),
-    ])
-    last_updated = models.DateTimeField(auto_now=True)
-    driver = models.OneToOneField(Driver, on_delete=models.CASCADE, related_name='vehicle', null=True)
-    brand = models.CharField(max_length=50, default='Unknown')
-    year_of_manufacture = models.PositiveIntegerField(null=True)
+    ])  # Статус транспортного средства
+    driver = models.OneToOneField(Driver, on_delete=models.CASCADE, related_name='vehicle', null=True)  # Водитель
+    vehicle_type = models.ForeignKey(VehicleType, on_delete=models.CASCADE, related_name='vehicles', null=True, blank=True)  # Тип транспорта, теперь можно быть пустым
 
     def __str__(self):
-        return self.vehicle_number
+        return f'{self.vehicle_number} - {self.vehicle_type.name if self.vehicle_type else "Unknown"}'
 
     def get_routes(self):
         Route = apps.get_model('map', 'Route')  
         return Route.objects.filter(vehicles=self)
+
 

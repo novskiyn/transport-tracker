@@ -4,10 +4,15 @@ from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated
 from .models import Route, Trip
+from tracking.models import VehicleType
 from .serializers import RouteSerializer, TripSerializer
 
-def index(request):
-    return render(request, 'index.html')
+def home_page(request):
+    return render(request, 'home_page.html')  
+
+def about_page(request):
+    transport_info = VehicleType.objects.all()
+    return render(request, 'about_page.html', {'transport_info': transport_info})      
 
 class RoutePagination(PageNumberPagination):
     page_size = 10
