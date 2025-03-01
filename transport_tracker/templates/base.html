@@ -2,40 +2,27 @@
 
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Система отслеживания транспорта и прокладывания маршрутов">
     <meta name="keywords" content="транспорт, отслеживание, маршруты">
-    <meta name="author" content="Твое имя">
-    <title>{% block title %}Главная{% endblock %}</title>
+    <title>{% block title %}БелТранс{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon"> <!-- фавикон -->
-
-    <!-- Подключаем шрифт и иконки для удобства -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script defer src="{% static 'js/script.js' %}"></script>
 </head>
-
 <body>
-    <header>
+    <header class="top-header">
         <div class="container">
-            <div class="logo">
-                <a href="{% url 'index' %}">Логотип</a>
+            <div class="nav-center">
+                <a href="{% url 'home_page' %}" class="{% if request.resolver_match.url_name == 'home_page' %}active{% endif %}">Главная</a>
+                <a href="#">Карта</a>
+                <a href="{% url 'about_page' %}" class="{% if request.resolver_match.url_name == 'about_page' %}active{% endif %}">О нас</a>
+                <a href="#">Контакты</a>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="{% url 'index' %}" class="active">Главная</a></li>
-                    <li><a href="">Карта</a></li>
-                    <li><a href="">Транспорт</a></li>
-                    <li><a href="#">О нас</a></li>
-                    <li><a href="#">Контакты</a></li>
-                </ul>
-            </nav>
-            <div class="hamburger" id="hamburger-menu">
-                <i class="fas fa-bars"></i>
-            </div>
+        </div>
+        <div class="auth-buttons">
+            <a href="" class="btn btn-auth">Войти</a>
         </div>
     </header>
 
@@ -52,8 +39,5 @@
             <p>&copy; 2025 Все права защищены</p>
         </div>
     </footer>
-
-    <script src="{% static 'js/script.js' %}"></script>
 </body>
-
 </html>

@@ -1,73 +1,4 @@
 /* Общие стили */
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-footer {
-    background: #111;
-    color: #fff;
-    padding: 40px 0;
-    text-align: center;
-}
-
-footer .footer-links {
-    margin-bottom: 20px;
-}
-
-footer .footer-links a {
-    margin: 0 15px;
-    color: #fff;
-    text-decoration: none;
-}
-
-footer .footer-links a:hover {
-    text-decoration: underline;
-}
-
-/* Стили для хедера */
-header {
-    background: #000;
-    color: #fff;
-    padding: 20px 0;
-}
-
-header .logo a {
-    font-size: 2rem;
-    font-weight: 600;
-    color: #fff;
-    text-decoration: none;
-}
-
-header nav ul {
-    display: flex;
-    justify-content: flex-end;
-    list-style: none;
-    padding: 0;
-}
-
-header nav ul li {
-    margin-left: 30px;
-}
-
-header nav ul li a {
-    font-size: 1.2rem;
-    color: #fff;
-    text-decoration: none;
-}
-
-header nav ul li a.active {
-    font-weight: bold;
-}
-
-header .hamburger {
-    display: none;
-    cursor: pointer;
-    font-size: 2rem;
-    color: #fff;
-}
-
 body {
     font-family: 'Inter', sans-serif;
     margin: 0;
@@ -94,6 +25,69 @@ body {
     filter: brightness(40%);
 }
 
+.top-header {
+    height: 80px; /* Установка высоты верхней шапки */
+    padding: 0 20px;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center; /* Центрируем по вертикали */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.top-header .container {
+    display: flex;
+    justify-content: center; /* Центрируем по горизонтали */
+    width: 100%; /* Занимаем всю ширину */
+}
+
+.top-header .nav-center {
+    display: flex; /* Добавляем flexbox для кнопок навигации */
+    align-items: center; /* Центрируем по вертикали */
+    margin-right: 40px;
+}
+
+.top-header .nav-center a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin: 0 15px;
+    transition: color 0.3s ease;
+}
+
+.top-header .nav-center a:hover {
+    color: #ff4500;
+}
+
+.top-header .nav-center a.active {
+    color: #ff4500;
+}
+
+.top-header .auth-buttons {
+    position: absolute; /* Абсолютное позиционирование */
+    right: 50px; /* Отступ справа */
+    display: flex; /* Добавляем flexbox для кнопок */
+    align-items: center; /* Центрируем по вертикали */
+}
+
+.top-header .auth-buttons a {
+    color: #fff;
+    background-color: #ff4500;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-decoration: none;
+    margin-left: 15px;
+    transition: 0.3s;
+}
+
+.top-header .auth-buttons a:hover {
+    background-color: #ff8000;
+}
+
 /* Hero Section */
 .hero {
     display: flex;
@@ -105,21 +99,21 @@ body {
 }
 
 .hero-content {
-    max-width: 900px;  /* Увеличиваем ширину */
-    background: rgba(0, 0, 0, 0.6);  /* темный полупрозрачный фон */
-    padding: 40px;  /* Увеличиваем отступы */
+    max-width: 900px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 40px;
     border-radius: 10px;
     width: 100%;
 }
 
 .hero h1 {
-    font-size: 3.5rem;  /* Увеличиваем размер шрифта */
+    font-size: 3.5rem;
     font-weight: 700;
     animation: fadeIn 1.5s ease-in-out;
 }
 
 .hero p {
-    font-size: 1.4rem;  /* Увеличиваем размер шрифта */
+    font-size: 1.4rem;
     margin: 20px 0;
     opacity: 0.9;
 }
@@ -127,7 +121,7 @@ body {
 .btn {
     display: inline-block;
     padding: 12px 30px;
-    font-size: 1.4rem;  /* Увеличиваем размер кнопки */
+    font-size: 1.4rem;
     font-weight: bold;
     text-decoration: none;
     border-radius: 8px;
@@ -147,7 +141,7 @@ body {
 /* Features */
 .features {
     text-align: center;
-    padding: 80px 20px;  /* Увеличиваем отступы */
+    padding: 80px 20px;
 }
 
 .features-grid {
@@ -158,10 +152,10 @@ body {
 }
 
 .feature {
-    background: rgba(0, 0, 0, 0.6);  /* темный полупрозрачный фон */
-    padding: 30px;  /* Увеличиваем отступы */
+    background: rgba(0, 0, 0, 0.6);
+    padding: 30px;
     border-radius: 10px;
-    width: 320px;  /* Увеличиваем ширину */
+    width: 320px;
     text-align: center;
     transition: 0.3s;
 }
@@ -173,22 +167,22 @@ body {
 /* О компании */
 .about {
     text-align: center;
-    padding: 100px 20px;  /* Увеличиваем отступы */
+    padding: 100px 20px;
 }
 
 .about p {
-    background: rgba(0, 0, 0, 0.6);  /* темный полупрозрачный фон */
-    padding: 40px;  /* Увеличиваем отступы */
+    background: rgba(0, 0, 0, 0.6);
+    padding: 40px;
     border-radius: 10px;
-    max-width: 800px;  /* Увеличиваем ширину */
-    margin: 0 auto;  /* Центрируем блок */
-    font-size: 1.3rem;  /* Увеличиваем размер текста */
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.3rem;
 }
 
 /* Преимущества */
 .advantages {
     text-align: center;
-    padding: 80px 20px;  /* Увеличиваем отступы */
+    padding: 80px 20px;
 }
 
 .advantages-grid {
@@ -199,16 +193,16 @@ body {
 }
 
 .advantage {
-    background: rgba(0, 0, 0, 0.6);  /* темный полупрозрачный фон */
-    padding: 30px;  /* Увеличиваем отступы */
+    background: rgba(0, 0, 0, 0.6);
+    padding: 30px;
     border-radius: 10px;
-    width: 320px;  /* Увеличиваем ширину */
+    width: 320px;
 }
 
 /* Отзывы */
 .reviews {
     text-align: center;
-    padding: 80px 20px;  /* Увеличиваем отступы */
+    padding: 80px 20px;
 }
 
 .reviews-slider {
@@ -219,14 +213,207 @@ body {
 }
 
 .review {
-    background: rgba(0, 0, 0, 0.6);  /* темный полупрозрачный фон */
-    padding: 30px;  /* Увеличиваем отступы */
+    background: rgba(0, 0, 0, 0.6);
+    padding: 30px;
     border-radius: 10px;
-    min-width: 320px;  /* Увеличиваем ширину */
+    min-width: 320px;
+}
+
+/* Footer */
+footer {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px 0;
+    position: relative;
+    text-align: center;
+}
+
+footer .footer-links {
+    margin-bottom: 10px;
+}
+
+footer .footer-links a {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+footer .footer-links a:hover {
+    color: #ff4500;
+}
+
+footer p {
+    font-size: 1rem;
+}
+
+/* Active Nav Link */
+nav ul li a.active {
+    color: #ff4500;
+}
+
+/* Main Content */
+main {
+    margin-top: 80px; /* Offset the header */
 }
 
 /* Анимации */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* Секция "О компании" */
+.about {
+    text-align: center;
+    padding: 100px 20px;
+    background: transparent; /* Прозрачный фон */
+}
+
+.about p {
+    background: rgba(0, 0, 0, 0.6); /* Прозрачный фон с черным цветом */
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.3rem;
+}
+
+/* Секция "Транспорт" */
+.transport {
+    padding: 80px 20px;
+    background: transparent; /* Прозрачный фон */
+}
+
+.transport h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #fff;
+    text-align: center;
+}
+
+.transport p {
+    font-size: 1.3rem;
+    margin-bottom: 40px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.6); /* Прозрачный фон с черным цветом */
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Список транспортных средств */
+.transport-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); /* Ширина карточек */
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.vehicle-card {
+    background: rgba(0, 0, 0, 0.7); /* Темный полупрозрачный фон */
+    padding: 25px;
+    border-radius: 10px;
+    color: #fff;
+    text-align: left;
+    box-shadow: 0px 4px 10px rgba(255, 69, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.vehicle-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 20px rgba(255, 69, 0, 0.5);
+}
+
+.vehicle-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.vehicle-card p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+.vehicle-card img {
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    object-fit: cover;
+    border: 3px solid rgba(255, 69, 0, 0.8);
+}
+
+/* Секция "Наша команда" */
+.team {
+    text-align: center;
+    padding: 0 20px 100px 20px;
+    background: transparent; /* Прозрачный фон */
+}
+
+.team-description {
+    background: rgba(0, 0, 0, 0.6); /* Прозрачный фон с черным цветом */
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+    font-size: 1.3rem;
+    text-align: center;
+    color: #fff;
+}
+
+.team-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.team-member {
+    background: rgba(0, 0, 0, 0.6); /* Прозрачный фон с черным цветом */
+    padding: 25px;
+    border-radius: 15px;
+    width: 280px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0px 4px 15px rgba(255, 69, 0, 0.2);
+}
+
+.team-member:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 6px 20px rgba(255, 69, 0, 0.5);
+}
+
+.team-member img {
+    width: 180px;
+    height: 180px;
+    border-radius: 15px;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid rgba(255, 69, 0, 0.8);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.team-member:hover img {
+    transform: scale(1.05);
+    border-color: #ff8000;
+}
+
+.team-member h4 {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.team-member p {
+    font-size: 1rem;
+    color: #bbb;
+    margin-bottom: 8px;
 }
