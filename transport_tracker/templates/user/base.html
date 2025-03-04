@@ -16,13 +16,13 @@
         <div class="container">
             <div class="nav-center">
                 <a href="{% url 'home_page' %}" class="{% if request.resolver_match.url_name == 'home_page' %}active{% endif %}">Главная</a>
-                <a href="#">Карта</a>
                 <a href="{% url 'about_page' %}" class="{% if request.resolver_match.url_name == 'about_page' %}active{% endif %}">О нас</a>
-                <a href="#">Контакты</a>
+                <a href="{% url 'contact_page' %}" class="{% if request.resolver_match.url_name == 'contact_page' %}active{% endif %}">Контакты</a>
             </div>
         </div>
         <div class="auth-buttons">
             <a href="" class="btn btn-auth">Войти</a>
+            <a href="" class="btn btn-auth">Регистрация</a>
         </div>
     </header>
 

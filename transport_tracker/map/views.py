@@ -8,11 +8,14 @@ from tracking.models import VehicleType
 from .serializers import RouteSerializer, TripSerializer
 
 def home_page(request):
-    return render(request, 'home_page.html')  
+    return render(request, 'user/home_page.html')  
 
 def about_page(request):
     transport_info = VehicleType.objects.all()
-    return render(request, 'about_page.html', {'transport_info': transport_info})      
+    return render(request, 'user/about_page.html', {'transport_info': transport_info})   
+
+def contact_page(request):
+    return render(request, 'user/contact_page.html')  
 
 class RoutePagination(PageNumberPagination):
     page_size = 10

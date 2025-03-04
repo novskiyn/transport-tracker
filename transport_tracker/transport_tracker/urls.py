@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from map.views import home_page, about_page
+from map.views import home_page, about_page, contact_page
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -18,6 +18,7 @@ urlpatterns = [
 
     path('', home_page, name='home_page'),
     path('about/', about_page, name='about_page'),
+    path('contact/', contact_page, name='contact_page'),
 ]
 
 if settings.DEBUG:

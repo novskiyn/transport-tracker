@@ -1,0 +1,46 @@
+{% extends "user/base.html" %}
+
+{% load static %}
+
+{% block title %}Контакты{% endblock %}
+
+{% block content %}
+    <!-- Видео на заднем фоне -->
+    <div class="video-background">
+        <video autoplay loop muted playsinline>
+            <source src="{% static 'images/background.mp4' %}" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+    </div>
+
+    <!-- Секция с контактной информацией -->
+    <section class="contact-info">
+        <div class="container">
+            <h3>Наши контактные данные</h3>
+            <div class="contact-details">
+                <div class="contact-item">
+                    <h4>Адрес</h4>
+                    <p>Новополоцк, ул. Комсомольская, 7</p>
+                </div>
+                <div class="contact-item">
+                    <h4>Телефон</h4>
+                    <p>+375 (33) 676-40-18</p>
+                </div>
+                <div class="contact-item">
+                    <h4>Электронная почта</h4>
+                    <p>21it1.litunovskiy.n@pdu.by</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция с картой -->
+    <section class="map">
+        <div class="container">
+            <h3>Наш офис на карте</h3>
+            <div id="map-container" style="height: 400px;"></div>
+        </div>
+    </section>
+
+{% endblock %}
+
