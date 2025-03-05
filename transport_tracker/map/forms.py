@@ -10,3 +10,5 @@ class TripForm(forms.ModelForm):
     class Meta:
         model = Trip
         fields = ['vehicle', 'route', 'departure_time', 'arrival_time']
+
+        

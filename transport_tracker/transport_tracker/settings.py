@@ -20,6 +20,7 @@ INSTALLED_APPS = [
 
     'map',
     'tracking',
+    'authentication'
 ]
 
 MIDDLEWARE = [

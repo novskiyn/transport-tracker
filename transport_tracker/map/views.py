@@ -5,7 +5,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated
 from .models import Route, Trip
 from tracking.models import VehicleType
-from .serializers import RouteSerializer, TripSerializer
+from .serializers import RouteSerializer, TripSerializer   
 
 def home_page(request):
     return render(request, 'user/home_page.html')  
@@ -16,6 +16,9 @@ def about_page(request):
 
 def contact_page(request):
     return render(request, 'user/contact_page.html')  
+
+def reviews_page(request):
+    return render(request, 'user/reviews_page.html')      
 
 class RoutePagination(PageNumberPagination):
     page_size = 10

@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework import serializers
 from .models import Route, Trip
 
 class RouteSerializer(serializers.ModelSerializer):
@@ -16,4 +18,7 @@ class TripSerializer(serializers.ModelSerializer):
         driver = data['vehicle'].driver  # Получаем водителя
         if not driver.can_take_trip(data['departure_time'], data['arrival_time']):
             raise serializers.ValidationError("Водитель не может выполнить несколько маршрутов в одно и то же время.")
-        return data    
+        return data  
+
+
+
