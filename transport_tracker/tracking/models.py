@@ -1,9 +1,30 @@
 from django.db import models
-from django.apps import apps  
-from map.models import Trip
+from django.apps import apps
 from django.contrib.auth.models import User
 
+# Модели для маршрутов и поездок (Map App)
+class Route(models.Model):
+    name = models.CharField(max_length=100)
+    start_point = models.CharField(max_length=255)
+    end_point = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
+
+class Trip(models.Model):
+    vehicle = models.ForeignKey('Vehicle', related_name='trips', on_delete=models.CASCADE)  # Ленивая загрузка
+    route = models.ForeignKey(Route, related_name='trips', on_delete=models.CASCADE)
+    departure_time = models.DateTimeField()
+    arrival_time = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.vehicle} по маршруту {self.route} с {self.departure_time} до {self.arrival_time}"
+
+# Модели для водителей и транспортных средств (Tracking App)
 class Driver(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -63,11 +84,11 @@ class VehicleType(models.Model):
 class Vehicle(models.Model):
     vehicle_number = models.CharField(max_length=50)  # Номер транспортного средства
     current_location = models.CharField(max_length=255)  # Текущее местоположение
-    status = models.CharField(max_length=20, choices=[
+    status = models.CharField(max_length=20, choices=[  # Статус транспортного средства
         ('active', 'Active'),
         ('inactive', 'Inactive'),
         ('on_route', 'On Route'),
-    ])  # Статус транспортного средства
+    ])
     driver = models.OneToOneField(Driver, on_delete=models.CASCADE, related_name='vehicle', null=True)  # Водитель
     vehicle_type = models.ForeignKey(VehicleType, on_delete=models.CASCADE, related_name='vehicles', null=True, blank=True)  # Тип транспорта, теперь можно быть пустым
 
@@ -75,7 +96,5 @@ class Vehicle(models.Model):
         return f'{self.vehicle_number} - {self.vehicle_type.name if self.vehicle_type else "Unknown"}'
 
     def get_routes(self):
-        Route = apps.get_model('map', 'Route')  
+        Route = apps.get_model('tracking', 'Route')  
         return Route.objects.filter(vehicles=self)
-
-

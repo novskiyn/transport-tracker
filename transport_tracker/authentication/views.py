@@ -65,9 +65,9 @@ def login_user(request):
 
 # Страница регистрации (для рендеринга шаблона)
 def register_page(request):
-    return render(request, 'user/register_page.html')
+    return render(request, 'auth/register_page.html')
 
 
 # Страница входа (для рендеринга шаблона)
 def login_page(request):
-    return render(request, 'user/login_page.html')
+    return render(request, 'auth/login_page.html')
