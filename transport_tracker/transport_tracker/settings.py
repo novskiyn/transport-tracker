@@ -18,8 +18,12 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework_simplejwt',  
 
-    'map',
     'tracking',
+    'authentication',
+    'user',
+    'client',
+    'admin_panel',
+    'driver',
 ]
 
 MIDDLEWARE = [
@@ -39,8 +43,11 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / 'templates',  # Глобальные шаблоны
+            BASE_DIR / 'tracking' / 'templates',  # Шаблоны приложения tracking
+            BASE_DIR / 'authentication' / 'templates',  # Шаблоны приложения auth
+            BASE_DIR / 'user' / 'templates',  # Шаблоны клиента (если есть) # Шаблоны админки (если есть)
         ],
-        'APP_DIRS': True,  # Django автоматически ищет шаблоны в приложениях
+        'APP_DIRS': False,  # Отключаем автоматический поиск, так как указываем пути вручную
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -51,6 +58,8 @@ TEMPLATES = [
         },
     },
 ]
+
+
 
 WSGI_APPLICATION = 'transport_tracker.wsgi.application'
 
@@ -105,5 +114,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-
 
