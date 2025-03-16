@@ -23,6 +23,10 @@ document.getElementById('registerForm')?.addEventListener('submit', function (ev
         username: formData.get('username'),
         password: formData.get('password'),
         confirm_password: formData.get('confirm_password'),
+        first_name: formData.get('first_name'),
+        last_name: formData.get('last_name'),
+        email: formData.get('email'),
+        contact_number: formData.get('contact_number'),
     };
 
     // Проверка совпадения паролей
@@ -103,4 +107,3 @@ document.getElementById('loginForm')?.addEventListener('submit', function (event
         document.getElementById('error-message').style.display = 'block';
     });
 });
-

@@ -1,29 +1,55 @@
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import render
 
+User = get_user_model()
+
 # Регистрация нового пользователя
+from django.contrib.auth import get_user_model
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+
+# Получаем модель пользователя из настроек
+User = get_user_model()
+
 @api_view(['POST'])
 def register_user(request):
+    # Получаем данные из запроса
     username = request.data.get('username')
     password = request.data.get('password')
     confirm_password = request.data.get('confirm_password')
+    contact_number = request.data.get('contact_number')
+    first_name = request.data.get('first_name')
+    last_name = request.data.get('last_name')
+    email = request.data.get('email')
 
-    if not username or not password:
-        return Response({"error": "Имя пользователя и пароль обязательны"}, status=status.HTTP_400_BAD_REQUEST)
+    # Проверка обязательных полей
+    if not username or not password or not contact_number or not first_name or not last_name or not email:
+        return Response({"error": "Все поля обязательны: имя пользователя, пароль, контактный номер, имя, фамилия и email."}, status=status.HTTP_400_BAD_REQUEST)
 
+    # Проверка совпадения паролей
     if password != confirm_password:
         return Response({"error": "Пароли не совпадают"}, status=status.HTTP_400_BAD_REQUEST)
 
+    # Проверка на существование пользователя
     if User.objects.filter(username=username).exists():
         return Response({"error": "Пользователь с таким именем уже существует"}, status=status.HTTP_400_BAD_REQUEST)
 
-    # Создание пользователя
-    user = User.objects.create_user(username=username, password=password)
+    # Создание пользователя с дополнительными полями
+    user = User.objects.create_user(
+        username=username,
+        password=password,
+        first_name=first_name,
+        last_name=last_name,
+        email=email,
+        contact_number=contact_number
+    )
     
     # Создание JWT токенов для пользователя
     refresh = RefreshToken.for_user(user)
@@ -34,6 +60,7 @@ def register_user(request):
         "access_token": access_token,
         "refresh_token": str(refresh)
     }, status=status.HTTP_201_CREATED)
+
 
 
 

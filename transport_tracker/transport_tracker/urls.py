@@ -18,7 +18,8 @@ urlpatterns = [
 
     path('tracking/', include('tracking.urls')),
 
-    path('user', include('user.urls')),
+    path('user/', include('user.urls')),
+    path('driver/', include('driver.urls')),
 
     path('', home_page, name='home_page'),
     path('about/', about_page, name='about_page'),
