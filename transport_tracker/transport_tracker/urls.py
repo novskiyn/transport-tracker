@@ -21,7 +21,8 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('driver/', include('driver.urls')),
 
-    path('', home_page, name='home_page'),
+    # User
+    path('home', home_page, name='home_page'),
     path('about/', about_page, name='about_page'),
     path('contact/', contact_page, name='contact_page'),
     path('reviews/', reviews_page, name='reviews_page'),
