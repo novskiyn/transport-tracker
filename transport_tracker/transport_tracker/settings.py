@@ -6,6 +6,8 @@ SECRET_KEY = 'django-insecure-=@t1itcq!qt#n#ubds#jv8&tt(v9v&1$jah#oh(n-olxn-f@^#
 DEBUG = True
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'authentication.User'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,12 +44,11 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'templates',  # Глобальные шаблоны
-            BASE_DIR / 'tracking' / 'templates',  # Шаблоны приложения tracking
-            BASE_DIR / 'authentication' / 'templates',  # Шаблоны приложения auth
-            BASE_DIR / 'user' / 'templates',  # Шаблоны клиента (если есть) # Шаблоны админки (если есть)
+            BASE_DIR / 'tracking' / 'templates',  
+            BASE_DIR / 'authentication' / 'templates',  
+            BASE_DIR / 'user' / 'templates',  
         ],
-        'APP_DIRS': False,  # Отключаем автоматический поиск, так как указываем пути вручную
+        'APP_DIRS': True,  # Отключаем автоматический поиск, так как указываем пути вручную
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
