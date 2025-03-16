@@ -1,19 +1,10 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import render
-
-User = get_user_model()
-
-# Регистрация нового пользователя
-from django.contrib.auth import get_user_model
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import status
 
 # Получаем модель пользователя из настроек
 User = get_user_model()
@@ -62,32 +53,49 @@ def register_user(request):
     }, status=status.HTTP_201_CREATED)
 
 
-
-
-# Вход пользователя с использованием JWT
 @api_view(['POST'])
 def login_user(request):
     username = request.data.get('username')
     password = request.data.get('password')
 
+    # Проверка наличия данных
     if not username or not password:
-        return Response({"error": "Имя пользователя и пароль обязательны"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": "Необходимо указать имя пользователя и пароль."}, status=status.HTTP_400_BAD_REQUEST)
 
     # Аутентификация пользователя
-    user = authenticate(request, username=username, password=password)
+    user = authenticate(username=username, password=password)
 
-    if not user:
-        return Response({"error": "Неверное имя пользователя или пароль"}, status=status.HTTP_401_UNAUTHORIZED)
+    if user is None:
+        return Response({"error": "Неверные учетные данные."}, status=status.HTTP_400_BAD_REQUEST)
 
-    # Создание JWT токенов
+    # Явно входим в систему
+    login(request, user)
+
+    # Генерация токенов для аутентифицированного пользователя
     refresh = RefreshToken.for_user(user)
     access_token = str(refresh.access_token)
+    refresh_token = str(refresh)
+
+    # Определение роли пользователя
+    role = user.role  # Допустим, вы добавили поле role для пользователя
+
+    # Перенаправление в зависимости от роли
+    if role == 'driver':
+        redirect_url = f'/driver/home/{user.id}'
+    elif role == 'client':
+        redirect_url = f'/client/home/{user.id}'
+    elif role == 'admin':
+        redirect_url = f'/admin/home/{user.id}'
+    else:
+        redirect_url = '/'  # Default redirection
 
     return Response({
-        'message': 'Успешный вход',
-        'access_token': access_token,
-        'refresh_token': str(refresh),
+        "message": "Вход успешен.",
+        "access_token": access_token,
+        "refresh_token": refresh_token,
+        "redirect_url": redirect_url  # Включаем информацию о перенаправлении
     })
+
 
 
 # Страница регистрации (для рендеринга шаблона)
