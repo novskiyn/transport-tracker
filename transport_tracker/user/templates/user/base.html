@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{% static 'css/styles_authentication.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles_contact.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles_about.css' %}">
-    <script defer src="{% static 'js/auth/auth_register.js' %}"></script>
+    <script defer src="{% static 'js/auth_register.js' %}"></script>
 </head>
 <body>
     <header class="top-header">
@@ -21,7 +21,7 @@
                 <a href="{% url 'home_page' %}" class="{% if request.resolver_match.url_name == 'home_page' %}active{% endif %}">Главная</a>
                 <a href="{% url 'about_page' %}" class="{% if request.resolver_match.url_name == 'about_page' %}active{% endif %}">О нас</a>
                 <a href="{% url 'contact_page' %}" class="{% if request.resolver_match.url_name == 'contact_page' %}active{% endif %}">Контакты</a>
-                <a href="{% url 'reviews_page' %}" class="{% if request.resolver_match.url_name == 'reviews_page' %}active{% endif %}">Отзывы</a>
+                <a href="{% url 'reviews_page' %}" class="{% if request.resolver_match.url_name == 'reviews_page' %}active{% endif %}">Отзывы о компании</a>
             </div>
         </div>
         <div class="auth-buttons">

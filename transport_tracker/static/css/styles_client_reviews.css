@@ -1,0 +1,228 @@
+/* --- Общие стили профиля --- */
+.profile-container {
+    max-width: 900px;
+    margin: 120px auto 40px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(255, 69, 0, 0.2);
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+/* --- Основное содержимое профиля --- */
+.profile-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    justify-content: flex-start;
+    padding: 20px;
+}
+
+/* --- Карточка профиля --- */
+.profile-card {
+    flex-grow: 1;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    text-align: left;
+}
+
+.profile-card h2 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.profile-card p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin: 5px 0;
+}
+
+/* --- Рамка для аватара --- */
+.avatar-section {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.avatar-frame {
+    width: 200px;  /* Увеличиваем размер рамки для аватара */
+    height: 200px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 69, 0, 0.7);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.avatar-frame:hover {
+    border-color: rgba(255, 69, 0, 1);
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-upload-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background: rgba(255, 69, 0, 0.7);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+}
+
+.avatar-upload-btn:hover {
+    background: rgba(255, 69, 0, 1);
+}
+
+/* --- Кнопки редактирования профиля и смены пароля в одном ряду --- */
+.profile-btns {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* Отступ между кнопками */
+    margin-top: 20px;
+}
+
+.edit-profile-btn, .edit-password-btn {
+    padding: 8px 15px;  /* Уменьшаем размер кнопок */
+    font-size: 1rem;
+    color: white;
+    background: rgba(255, 69, 0, 0.7);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 48%;  /* Уменьшаем ширину кнопок, чтобы они поместились в одну строку */
+}
+
+.edit-profile-btn:hover, .edit-password-btn:hover {
+    background: rgba(255, 69, 0, 1);
+}
+
+/* --- Скрытие/показ формы --- */
+.hidden {
+    display: none;
+}
+
+/* --- Общие стили для форм --- */
+.edit-profile-form, .change-password-section {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    box-shadow: 0px 2px 8px rgba(255, 69, 0, 0.3);
+    margin-top: 30px;
+}
+
+/* Заголовок для обеих форм */
+.edit-profile-form h3, .change-password-section h3 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Стиль для полей ввода */
+.edit-profile-form input, .change-password-section input {
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid rgba(255, 69, 0, 0.5);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+    transition: border-color 0.3s ease;
+    width: 50%;
+    margin-bottom: 20px;
+}
+
+/* Placeholder стили для лучшей видимости */
+.edit-profile-form input::placeholder, .change-password-section input::placeholder {
+    color: rgba(255, 255, 255, 0.7); /* Светлее текст для плейсхолдера */
+    opacity: 1; /* Обеспечивает постоянную видимость текста */
+}
+
+/* Стили при фокусе на поле ввода */
+.edit-profile-form input:focus, .change-password-section input:focus {
+    border-color: rgba(255, 69, 0, 1);
+}
+
+/* Стиль для кнопок в формах */
+.edit-profile-form button, .change-password-section button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    color: white;
+    background: rgba(255, 69, 0, 0.7);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 50%; /* Кнопка занимает всю ширину родительского элемента */
+    margin-top: 20px; /* Отступ сверху для кнопки */
+}
+
+/* Изменения при наведении на кнопку */
+.edit-profile-form button:hover, .change-password-section button:hover {
+    background: rgba(255, 69, 0, 1);
+}
+
+/* --- Раздел отзывов --- */
+.reviews-section {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+}
+
+.reviews-section h3 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.reviews-list {
+    list-style: none;
+    padding: 0;
+}
+
+.review-item {
+    padding: 15px;
+    margin-bottom: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    text-align: left;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0px 2px 10px rgba(255, 69, 0, 0.3);
+}
+
+.review-item:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 69, 0, 0.2);
+}
+
+.review-item p {
+    margin: 4px 0;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.review-item strong {
+    color: #ff4500;
+}
+
+.no-reviews {
+    font-size: 1.2rem;
+    font-style: italic;
+    opacity: 0.7;
+}
