@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import DriverViewSet, DriverReviewViewSet
+from .views import DriverViewSet, DriverReviewViewSet, logout_user
 from .views import home_page_driver, about_page_driver, contact_page_driver, reviews_page_driver, history_page_driver, profile_page_driver, map_page_driver
 
 router = DefaultRouter()
@@ -22,4 +22,6 @@ urlpatterns = [
     path('history/<int:user_id>/', history_page_driver, name='history_page_driver'),
     path('profile/<int:user_id>/', profile_page_driver, name='profile_page_driver'),
     path('map/<int:user_id>/', map_page_driver, name='map_page_driver'),
+
+    path('logout/', logout_user, name='logout'),
 ]

@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from authentication.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 # Пагинация для клиентов
 class ClientPagination(PageNumberPagination):
@@ -114,4 +115,8 @@ def history_page_client(request, user_id):
     if redirect_response:
         return redirect_response
     return render(request, 'client/history_page_client.html', {'client': client})
+
+def logout_user(request):
+    logout(request)  # Выход из системы
+    return redirect('login_page')    
 
