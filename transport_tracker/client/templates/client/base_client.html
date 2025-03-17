@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Система отслеживания транспорта и прокладывания маршрутов">
+    <meta name="keywords" content="транспорт, отслеживание, маршруты">
+    <title>{% block title %}БелТранс - Водитель{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles_main_base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles_driver.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles_authentication.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles_contact.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles_about.css' %}">
+</head>
+<body>
+    <header class="top-header">
+        <div class="container">
+            <div class="nav-center">
+                <a href="{% url 'home_page_client' user_id=client.user.id %}" class="{% if request.resolver_match.url_name == 'home_page_client' %}active{% endif %}">Главная</a>
+                <a href="{% url 'about_page_client' user_id=client.user.id %}" class="{% if request.resolver_match.url_name == 'about_page_client' %}active{% endif %}">О нас</a>
+                <a href="{% url 'contact_page_client' user_id=client.user.id %}" class="{% if request.resolver_match.url_name == 'contact_page_client' %}active{% endif %}">Контакты</a>
+                <a href="{% url 'reviews_page_client' user_id=client.user.id %}" class="{% if request.resolver_match.url_name == 'reviews_page_client' %}active{% endif %}">Отзывы</a>
+                <a href="{% url 'map_page_client' user_id=client.user.id %}" class="{% if request.resolver_match.url_name == 'map_page_client' %}active{% endif %}">Карта</a>
+                <a href="{% url 'history_page_client' user_id=client.user.id %}" class="{% if request.resolver_match.url_name == 'history_page_client' %}active{% endif %}">История поездок</a>
+                <a href="{% url 'profile_page_client' user_id=client.user.id %}" class="{% if request.resolver_match.url_name == 'profile_page_client' %}active{% endif %}">Профиль</a>
+            </div>            
+        </div>
+
+        <div class="auth-buttons">
+            <a href="" class="btn btn-auth">Выйти</a>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Политика конфиденциальности</a>
+                <a href="#">Условия использования</a>
+            </div>
+            <p>&copy; 2025 Все права защищены</p>
+        </div>
+    </footer>
+</body>
+</html>
