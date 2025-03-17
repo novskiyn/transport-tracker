@@ -1,15 +1,18 @@
 from django.contrib.auth import authenticate, login
+from rest_framework.permissions import AllowAny
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from django.contrib.auth.decorators import login_required
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import render
+from .decorators import guest_required
 
-# Получаем модель пользователя из настроек
 User = get_user_model()
 
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def register_user(request):
     # Получаем данные из запроса
     username = request.data.get('username')
@@ -57,6 +60,7 @@ def register_user(request):
 
 
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def login_user(request):
     username = request.data.get('username')
     password = request.data.get('password')
@@ -101,11 +105,11 @@ def login_user(request):
 
 
 
-# Страница регистрации (для рендеринга шаблона)
+@guest_required
 def register_page(request):
     return render(request, 'auth/register_page.html')
 
 
-# Страница входа (для рендеринга шаблона)
+@guest_required
 def login_page(request):
     return render(request, 'auth/login_page.html')

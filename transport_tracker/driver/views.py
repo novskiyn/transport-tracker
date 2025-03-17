@@ -116,7 +116,9 @@ def history_page_driver(request, user_id):
         return redirect_response
     return render(request, 'driver/history_page_driver.html', {'driver': driver})
 
-
+def logout_user(request):
+    logout(request)  # Выход из системы
+    return redirect('login_page')  
 
 
 

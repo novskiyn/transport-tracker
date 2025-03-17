@@ -16,7 +16,7 @@
         <div class="hero-content">
             <h1>Добро пожаловать, {{ request.user.username }}</h1>
             <p>Просматривайте маршруты, управляйте поездками и следите за своим прогрессом на карте.</p>
-            <a href="" class="btn btn-primary">Перейти к карте</a>
+            <a href="{% url 'map_page_client' user_id=client.user.id %}" class="btn btn-primary">Перейти к карте</a>
         </div>
     </section>
 

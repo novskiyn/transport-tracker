@@ -9,10 +9,10 @@
     <meta name="keywords" content="транспорт, отслеживание, маршруты">
     <title>{% block title %}БелТранс - Водитель{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles_main_base.css' %}">
-    <link rel="stylesheet" href="{% static 'css/styles_driver.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles_authentication.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles_contact.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles_about.css' %}">
+    <script defer src="{% static 'js/auth/confirm_logout.js' %}"></script>
 </head>
 <body>
     <header class="top-header">
@@ -29,8 +29,9 @@
         </div>
 
         <div class="auth-buttons">
-            <a href="" class="btn btn-auth">Выйти</a>
+            <a href="#" class="btn btn-auth" id="logoutButton" data-logout-url="{% url 'logout' %}">Выйти</a>
         </div>
+                
     </header>
 
     <main>

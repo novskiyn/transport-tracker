@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{% static 'css/styles_authentication.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles_contact.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles_about.css' %}">
+    <script defer src="{% static 'js/auth/confirm_logout.js' %}"></script>
 </head>
 <body>
     <header class="top-header">
@@ -29,8 +30,9 @@
         </div>
 
         <div class="auth-buttons">
-            <a href="" class="btn btn-auth">Выйти</a>
+            <a href="#" class="btn btn-auth" id="logoutButton" data-logout-url="{% url 'logout' %}">Выйти</a>
         </div>
+
     </header>
 
     <main>
