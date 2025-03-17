@@ -92,11 +92,15 @@ def reviews_page_client(request, user_id):
 # Представление страницы профиля клиента
 @login_required
 def profile_page_client(request, user_id):
-    client = get_object_or_404(Client, user__id=user_id)  # Одним запросом получаем клиента
+    client = get_object_or_404(Client, user__id=user_id)
     redirect_response = check_client_permission(request, client)
     if redirect_response:
         return redirect_response
-    return render(request, 'client/profile_page_client.html', {'client': client})
+    reviews = ClientReview.objects.filter(client=client)
+    return render(request, 'client/profile_page_client.html', {
+        'client': client,
+        'reviews': reviews,
+    })
 
 # Представление страницы карты клиента
 @login_required

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{% static 'css/styles_authentication.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles_contact.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles_about.css' %}">
-    <script defer src="{% static 'js/auth/confirm_logout.js' %}"></script>
+    <script defer src="{% static 'js/confirm_logout.js' %}"></script>
 </head>
 <body>
     <header class="top-header">
@@ -22,10 +22,10 @@
                 <a href="{% url 'home_page_driver' user_id=driver.user.id %}" class="{% if request.resolver_match.url_name == 'home_page_driver' %}active{% endif %}">Главная</a>
                 <a href="{% url 'about_page_driver' user_id=driver.user.id %}" class="{% if request.resolver_match.url_name == 'about_page_driver' %}active{% endif %}">О нас</a>
                 <a href="{% url 'contact_page_driver' user_id=driver.user.id %}" class="{% if request.resolver_match.url_name == 'contact_page_driver' %}active{% endif %}">Контакты</a>
-                <a href="{% url 'reviews_page_driver' user_id=driver.user.id %}" class="{% if request.resolver_match.url_name == 'reviews_page_driver' %}active{% endif %}">Отзывы</a>
+                <a href="{% url 'reviews_page_driver' user_id=driver.user.id %}" class="{% if request.resolver_match.url_name == 'reviews_page_driver' %}active{% endif %}">Отзывы о компании</a>
                 <a href="{% url 'map_page_driver' user_id=driver.user.id %}" class="{% if request.resolver_match.url_name == 'map_page_driver' %}active{% endif %}">Карта</a>
                 <a href="{% url 'history_page_driver' user_id=driver.user.id %}" class="{% if request.resolver_match.url_name == 'history_page_driver' %}active{% endif %}">История поездок</a>
-                <a href="{% url 'profile_page_driver' user_id=driver.user.id %}" class="{% if request.resolver_match.url_name == 'profile_page_driver' %}active{% endif %}">Профиль</a>
+                <a href="{% url 'profile_page_driver' user_id=driver.user.id %}" class="{% if request.resolver_match.url_name == 'profile_page_driver' %}active{% endif %}">Мой профиль</a>
             </div>            
         </div>
 
