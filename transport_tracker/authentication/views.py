@@ -41,6 +41,9 @@ def register_user(request):
         email=email,
         contact_number=contact_number
     )
+
+    user.role = 'client'  # Если роль хранится в поле role
+    user.save()
     
     # Создание JWT токенов для пользователя
     refresh = RefreshToken.for_user(user)
