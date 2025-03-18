@@ -1,11 +1,10 @@
 {% extends "client/base_client.html" %}
-
 {% load static %}
 
 {% block title %}Мой профиль{% endblock %}
 
 {% block content %}
-
+<!-- Видеофон -->
 <div class="video-background">
     <video autoplay loop muted playsinline>
         <source src="{% static 'images/background.mp4' %}" type="video/mp4">
@@ -13,23 +12,39 @@
     </video>
 </div>
 
+<!-- Блок уведомлений -->
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+        <div class="message {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
 <main class="profile-container">
     <!-- Основное содержимое профиля -->
     <div class="profile-content">
         <!-- Аватар -->
         <div class="avatar-section">
-            <label for="avatar" class="avatar-frame">
-                {% if client.avatar %}
-                    <img src="{{ client.avatar.url }}" alt="Аватар" class="avatar">
-                {% else %}
-                    <span>Нажмите, чтобы загрузить</span>
-                {% endif %}
-            </label>
-            <form method="POST" enctype="multipart/form-data" class="avatar-form">
+            <form method="POST" enctype="multipart/form-data" class="avatar-form" id="avatar-form">
                 {% csrf_token %}
-                <input type="file" id="avatar" name="avatar" accept="image/*" style="display: none;">
-                <button type="submit" class="avatar-upload-btn">Сохранить</button>
-            </form>
+                <label for="avatar" class="avatar-frame">
+                    {% if client.avatar %}
+                        <img src="{{ client.avatar.url }}" alt="Аватар" class="avatar" id="avatar-image">
+                    {% else %}
+                        <span>Нажмите сюда, чтобы добавить аватарку</span>
+                    {% endif %}
+                </label>
+                <input type="file" id="avatar" name="avatar" accept="image/*" style="display: none;" onchange="updateAvatarPreview(event)">
+                
+                <!-- Кнопка сохранить -->
+                <button type="submit" class="avatar-upload-btn" id="save-avatar-btn">Сохранить</button>
+                
+                <!-- Кнопка удалить, если аватар есть -->
+                {% if client.avatar %}
+                    <button type="submit" class="avatar-delete-btn" name="delete_avatar" id="delete-avatar-btn">Удалить</button>
+                {% endif %}
+            </form>            
         </div>
 
         <!-- Карточка профиля -->
@@ -38,7 +53,7 @@
             <p><strong>Email:</strong> {{ client.user.email }}</p>
             <p><strong>Телефон:</strong> {{ client.contact_number }}</p>
             <!-- Кнопки действий -->
-            <button class="edit-profile-btn" onclick="toggleForm('edit-profile-form')">Редактировать профиль</button>
+            <button class="edit-profile-btn" onclick="toggleForm('edit-profile-form')">Редактировать</button>
             <button class="edit-password-btn" onclick="toggleForm('change-password-section')">Сменить пароль</button>
         </div>
     </div>
@@ -52,7 +67,7 @@
             <input type="text" name="last_name" value="{{ client.user.last_name }}" placeholder="Фамилия">
             <input type="email" name="email" value="{{ client.user.email }}" placeholder="Email">
             <input type="text" name="contact_number" value="{{ client.contact_number }}" placeholder="Телефон">
-            <button type="submit">Сохранить</button>
+            <button type="submit" name="edit_profile">Сохранить</button>
         </form>
     </div>
 
@@ -64,7 +79,7 @@
             <input type="password" name="old_password" placeholder="Старый пароль">
             <input type="password" name="new_password1" placeholder="Новый пароль">
             <input type="password" name="new_password2" placeholder="Подтвердите новый пароль">
-            <button type="submit">Изменить</button>
+            <button type="submit" name="change_password" class="change-password-btn">Изменить</button>
         </form>
     </div>
 
@@ -89,3 +104,4 @@
 </main>
 
 {% endblock %}
+

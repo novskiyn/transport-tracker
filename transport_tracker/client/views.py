@@ -8,7 +8,11 @@ from rest_framework.permissions import IsAuthenticated
 from authentication.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
+from django.contrib.auth import logout, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from .forms import ClientProfileForm, AvatarUpdateForm
+from django.contrib import messages
+
 
 # Пагинация для клиентов
 class ClientPagination(PageNumberPagination):
@@ -89,18 +93,58 @@ def reviews_page_client(request, user_id):
         return redirect_response
     return render(request, 'client/reviews_page_client.html', {'client': client, 'reviews': reviews})
 
-# Представление страницы профиля клиента
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+
 @login_required
 def profile_page_client(request, user_id):
     client = get_object_or_404(Client, user__id=user_id)
-    redirect_response = check_client_permission(request, client)
-    if redirect_response:
-        return redirect_response
-    reviews = ClientReview.objects.filter(client=client)
+
+    if request.method == 'POST':
+        # Обработка удаления аватара
+        if 'delete_avatar' in request.POST:
+            client.avatar.delete()  # Удаляем аватар
+            messages.success(request, "Аватар удален!")
+            return redirect('profile_page_client', user_id=user_id)
+
+        # Обработка обновления профиля
+        profile_form = ClientProfileForm(request.POST, instance=client)
+        avatar_form = AvatarUpdateForm(request.POST, request.FILES, instance=client)
+
+        if profile_form.is_valid():
+            profile_form.save()
+
+        if avatar_form.is_valid():
+            avatar_form.save()
+
+        # Обработка смены пароля
+        if 'change_password' in request.POST:
+            password_form = PasswordChangeForm(request.user, request.POST)
+            if password_form.is_valid():
+                user = password_form.save()
+                update_session_auth_hash(request, user)  # Обновление сессии после смены пароля
+                messages.success(request, "Пароль изменен успешно!")
+                return redirect('profile_page_client', user_id=user_id)
+            else:
+                messages.error(request, "Ошибка при смене пароля.")
+        else:
+            password_form = PasswordChangeForm(request.user)
+
+        messages.success(request, "Данные профиля обновлены!")
+        return redirect('profile_page_client', user_id=user_id)
+
+    # Передаем форму смены пароля в контекст
+    profile_form = ClientProfileForm(instance=client)
+    avatar_form = AvatarUpdateForm(instance=client)
+    password_form = PasswordChangeForm(request.user)
+
     return render(request, 'client/profile_page_client.html', {
         'client': client,
-        'reviews': reviews,
+        'profile_form': profile_form,
+        'avatar_form': avatar_form,
+        'password_form': password_form,  # Передаем форму смены пароля
     })
+
 
 # Представление страницы карты клиента
 @login_required

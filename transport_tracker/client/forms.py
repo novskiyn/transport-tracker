@@ -1,11 +1,17 @@
 from django import forms
 from .models import Client, ClientReview
+from django.contrib.auth.models import User
 
 # Форма для добавления или редактирования клиента
-class ClientForm(forms.ModelForm):
+class ClientProfileForm(forms.ModelForm):
     class Meta:
         model = Client
-        fields = ['first_name', 'last_name', 'contact_number']
+        fields = ['first_name', 'last_name', 'email', 'contact_number']
+
+class AvatarUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Client
+        fields = ['avatar']        
 
 # Форма для добавления или редактирования отзывов для клиента
 class ClientReviewForm(forms.ModelForm):
@@ -15,3 +21,10 @@ class ClientReviewForm(forms.ModelForm):
     class Meta:
         model = ClientReview
         fields = ['client', 'driver', 'rating', 'comment']
+
+class ProfileUpdateForm(forms.ModelForm):
+    contact_number = forms.CharField(max_length=20, required=False, label="Телефон")
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email']        

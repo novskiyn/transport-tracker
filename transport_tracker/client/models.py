@@ -11,6 +11,7 @@ class Client(models.Model):
     rating = models.FloatField(default=0)
     review_count = models.PositiveIntegerField(default=0)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='client_profile')
+    avatar = models.ImageField(upload_to='avatars/client/', blank=True, null=True)  # Новое поле для аватара
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -27,6 +28,7 @@ class Client(models.Model):
             self.rating = 0
             self.review_count = 0
         self.save()
+
 
 class ClientReview(models.Model):
     client = models.ForeignKey(Client, related_name='client_reviews', on_delete=models.CASCADE)
