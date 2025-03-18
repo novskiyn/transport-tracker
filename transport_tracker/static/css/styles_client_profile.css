@@ -109,7 +109,7 @@
     width: 48%;  /* Уменьшаем ширину кнопок, чтобы они поместились в одну строку */
 }
 
-.edit-profile-btn:hover, .edit-password-btn:hover {
+.edit-password-btn:hover {
     background: rgba(255, 69, 0, 1);
 }
 
@@ -226,3 +226,47 @@
     font-style: italic;
     opacity: 0.7;
 }
+
+/* --- Кнопка удаления аватара --- */
+/* Кнопка удалить аватар */
+.avatar-delete-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background: rgba(255, 69, 0, 0.7);  /* Красный цвет для кнопки удалить */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+}
+
+.avatar-delete-btn:hover {
+    background: rgba(255, 69, 0, 1);  /* Темный красный при наведении */
+}
+
+/* Кнопка сохранить аватар */
+.avatar-upload-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background: rgba(255, 69, 0, 0.7);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+}
+
+/* Скрытая кнопка */
+.hidden {
+    display: none;
+}
+
+.avatar-upload-btn:hover {
+    background: rgba(255, 69, 0, 1);
+}
+
+
