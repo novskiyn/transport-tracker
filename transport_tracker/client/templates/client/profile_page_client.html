@@ -4,6 +4,9 @@
 {% block title %}Мой профиль{% endblock %}
 
 {% block content %}
+
+<link rel="stylesheet" href="{% static 'css/styles_profile.css' %}">
+
 <!-- Видеофон -->
 <div class="video-background">
     <video autoplay loop muted playsinline>
@@ -37,15 +40,18 @@
                 </label>
                 <input type="file" id="avatar" name="avatar" accept="image/*" style="display: none;" onchange="updateAvatarPreview(event)">
                 
-                <!-- Кнопка сохранить -->
-                <button type="submit" class="avatar-upload-btn" id="save-avatar-btn">Сохранить</button>
-                
-                <!-- Кнопка удалить, если аватар есть -->
-                {% if client.avatar %}
-                    <button type="submit" class="avatar-delete-btn" name="delete_avatar" id="delete-avatar-btn">Удалить</button>
+                <!-- Кнопка сохранить, показывается только если аватара нет -->
+                {% if not client.avatar %}
+                    <button type="submit" class="avatar-upload-btn" id="save-avatar-btn">Сохранить</button>
                 {% endif %}
-            </form>            
+                
+                <!-- Кнопка удалить, показывается если аватар есть -->
+                {% if client.avatar %}
+                    <button type="submit" class="avatar-delete-btn" name="delete_avatar" id="delete-avatar-btn">Удалить аватар</button>
+                {% endif %}
+            </form>
         </div>
+        
 
         <!-- Карточка профиля -->
         <div class="profile-card">

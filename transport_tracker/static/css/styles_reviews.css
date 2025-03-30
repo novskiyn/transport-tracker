@@ -1,0 +1,294 @@
+/* --- Общие стили для страницы отзывов о компании --- */
+.reviews-page-container {
+    max-width: 900px;
+    margin: 120px auto 40px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(255, 69, 0, 0.2);
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+/* --- Основное содержимое страницы отзывов --- */
+.reviews-page-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    justify-content: flex-start;
+    padding: 20px;
+}
+
+.review-content {
+    padding-left: 40px; /* Отступ слева */
+    margin-top: 10px;   /* Добавить немного отступа сверху, если нужно */
+}
+
+.review-content p {
+    margin: 4px 0; /* Убираем отступы между абзацами */
+}
+
+/* --- Секция с отзывами --- */
+.reviews-section {
+    flex-grow: 1;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    text-align: left;
+}
+
+/* Заголовок секции отзывов */
+.reviews-section h2 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    color: #ff7f50;  /* Оранжевый для заголовка */
+}
+
+/* --- Список отзывов --- */
+.reviews-list {
+    list-style: none;
+    padding: 0;
+}
+
+.review-item {
+    display: flex;
+    align-items: center; /* Выравнивание элементов по центру */
+    padding: 10px; /* Уменьшили отступы */
+    margin-bottom: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    text-align: left;
+    box-shadow: 0px 2px 10px rgba(255, 69, 0, 0.3);
+    transition: 0.3s ease-in-out;
+}
+
+.review-item:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 69, 0, 0.2);
+}
+
+.review-item p {
+    margin: 4px 0;
+    font-size: 1rem; /* Размер текста как раньше */
+    opacity: 0.9;
+}
+
+.review-item strong {
+    color: #ff4500;
+}
+
+.no-reviews {
+    font-size: 1.2rem;
+    font-style: italic;
+    opacity: 0.7;
+}
+
+/* --- Добавление аватара слева от отзыва --- */
+.reviewer-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрируем все элементы по горизонтали */
+    gap: 10px;
+}
+
+.reviewer-name h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    text-align: center; /* Центрируем ник */
+}
+
+.reviewer-name .role {
+    font-size: 1rem;
+    color: #666;
+    text-align: center; /* Центрируем роль */
+}
+
+.reviewer-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #f0f0f0; /* Цвет фона для пустого кружка */
+    border: 2px solid #bc4317; /* Цвет обводки для кружка */
+}
+
+.reviewer-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* В случае, если аватара нет, показываем только пустой кружок */
+.reviewer-avatar .avatar-placeholder {
+    width: 50px; /* Размер кружка */
+    height: 50px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    border: 2px solid #ff4500;
+}
+
+
+/* Новый стиль для блока с рейтингом, текстом и датой */
+.review-body {
+    margin-top: 20px; /* Отступ сверху */
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Отступы между элементами */
+    align-items: flex-start;
+}
+
+.review-body .rating {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.review-body .review-text {
+    font-size: 1rem;
+    color: #333;
+}
+
+.review-body .review-date {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* --- Форма для добавления отзыва --- */
+.add-review-container {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    box-shadow: 0px 2px 8px rgba(255, 69, 0, 0.3);
+    margin-top: 30px;
+}
+
+.add-review-container h3 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ff7f50;
+}
+
+/* --- Поля для ввода отзыва --- */
+.add-review-container input, .add-review-container textarea {
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid rgba(255, 69, 0, 0.5);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+    transition: border-color 0.3s ease;
+    width: 50%;
+    margin-bottom: 20px;
+}
+
+.add-review-container input::placeholder, .add-review-container textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Стили при фокусе на поле ввода */
+.add-review-container input:focus, .add-review-container textarea:focus {
+    border-color: rgba(255, 69, 0, 1);
+}
+
+/* --- Кнопка отправки отзыва --- */
+.add-review-container button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    color: white;
+    background: rgba(255, 69, 0, 0.7);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 50%;
+    margin-top: 20px;
+}
+
+.add-review-container button:hover {
+    background: rgba(255, 69, 0, 1);
+}
+
+/* --- Секционные кнопки редактирования и удаления отзыва --- */
+.review-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+    width: 100%; /* Обеспечивает расположение кнопок в одну строку */
+}
+
+.edit-review-btn, .delete-review-btn {
+    padding: 8px 15px;
+    font-size: 1rem;
+    color: white;
+    background: rgba(255, 69, 0, 0.7);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 48%; /* Уменьшаем ширину кнопок, чтобы они поместились в одну строку */
+}
+
+.edit-review-btn:hover, .delete-review-btn:hover {
+    background: rgba(255, 69, 0, 1);
+}
+
+/* --- Сообщение о том, что нет отзывов --- */
+.no-reviews-message {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* --- Пагинация --- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Общий стиль для всех кнопок пагинации */
+.pagination a {
+    text-decoration: none;
+    padding: 10px 15px;
+    background: rgba(255, 69, 0, 0.7); /* Оранжевый фон */
+    color: white;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Плавные переходы */
+}
+
+/* Эффект при наведении */
+.pagination a:hover {
+    background: rgba(255, 69, 0, 1); /* Темный оранжевый */
+    transform: scale(1.1); /* Увеличение при наведении */
+}
+
+/* Стиль для активной кнопки пагинации */
+.pagination a.active {
+    background: rgba(0, 123, 255, 0.8); /* Синий для активной страницы */
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Стиль для кнопок "Следующая" и "Предыдущая" */
+.pagination .next, .pagination .prev {
+    background: rgba(0, 123, 255, 0.7); /* Синий фон для стрелок */
+    color: white;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 1rem;
+}
+
+/* Эффект для кнопок "Следующая" и "Предыдущая" */
+.pagination .next:hover, .pagination .prev:hover {
+    background: rgba(0, 123, 255, 1); /* Темно-синий при наведении */
+    transform: scale(1.1);
+}

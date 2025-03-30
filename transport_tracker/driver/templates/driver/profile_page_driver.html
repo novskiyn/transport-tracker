@@ -1,0 +1,112 @@
+{% extends "driver/base_driver.html" %}
+{% load static %}
+
+{% block title %}Мой профиль{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/styles_profile.css' %}">
+
+<!-- Видеофон -->
+<div class="video-background">
+    <video autoplay loop muted playsinline>
+        <source src="{% static 'images/background.mp4' %}" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+</div>
+
+<!-- Блок уведомлений -->
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+        <div class="message {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<main class="profile-container">
+    <!-- Основное содержимое профиля -->
+    <div class="profile-content">
+        <!-- Аватар -->
+        <div class="avatar-section">
+            <form method="POST" enctype="multipart/form-data" class="avatar-form" id="avatar-form">
+                {% csrf_token %}
+                <label for="avatar" class="avatar-frame">
+                    {% if driver.avatar %}
+                        <img src="{{ driver.avatar.url }}" alt="Аватар" class="avatar" id="avatar-image">
+                    {% else %}
+                        <span>Нажмите сюда, чтобы добавить аватарку</span>
+                    {% endif %}
+                </label>
+                <input type="file" id="avatar" name="avatar" accept="image/*" style="display: none;" onchange="updateAvatarPreview(event)">
+                
+                <!-- Кнопка сохранить, показывается только если аватара нет -->
+                {% if not driver.avatar %}
+                    <button type="submit" class="avatar-upload-btn" id="save-avatar-btn">Сохранить</button>
+                {% endif %}
+                
+                <!-- Кнопка удалить, показывается если аватар есть -->
+                {% if driver.avatar %}
+                    <button type="submit" class="avatar-delete-btn" name="delete_avatar" id="delete-avatar-btn">Удалить аватар</button>
+                {% endif %}
+            </form>
+        </div>
+
+        <!-- Карточка профиля -->
+        <div class="profile-card">
+            <h2>{{ driver.first_name }} {{ driver.last_name }}</h2>
+            <p><strong>Email:</strong> {{ driver.email }}</p>
+            <p><strong>Телефон:</strong> {{ driver.contact_number }}</p>
+            <p><strong>Рейтинг:</strong> {{ driver.rating }} ⭐ ({{ driver.review_count }} отзывов)</p>
+            <!-- Кнопки действий -->
+            <button class="edit-profile-btn" onclick="toggleForm('edit-profile-form')">Редактировать</button>
+            <button class="edit-password-btn" onclick="toggleForm('change-password-section')">Сменить пароль</button>
+        </div>
+    </div>
+
+    <!-- Форма редактирования профиля -->
+    <div id="edit-profile-form" class="edit-profile-form hidden">
+        <form method="POST" class="form-container">
+            <h3>Редактирование профиля</h3>
+            {% csrf_token %}
+            <input type="text" name="first_name" value="{{ driver.first_name }}" placeholder="Имя">
+            <input type="text" name="last_name" value="{{ driver.last_name }}" placeholder="Фамилия">
+            <input type="email" name="email" value="{{ driver.email }}" placeholder="Email">
+            <input type="text" name="contact_number" value="{{ driver.contact_number }}" placeholder="Телефон">
+            <button type="submit" name="edit_profile">Сохранить</button>
+        </form>
+    </div>
+
+    <!-- Форма смены пароля -->
+    <div id="change-password-section" class="change-password-section hidden">
+        <form method="POST" class="form-container">
+            <h3>Смена пароля</h3>
+            {% csrf_token %}
+            <input type="password" name="old_password" placeholder="Старый пароль">
+            <input type="password" name="new_password1" placeholder="Новый пароль">
+            <input type="password" name="new_password2" placeholder="Подтвердите новый пароль">
+            <button type="submit" name="change_password" class="change-password-btn">Изменить</button>
+        </form>
+    </div>
+
+    <!-- Раздел отзывов -->
+    <div class="reviews-section">
+        <h3>Отзывы от клиентов</h3>
+        {% if driver.driver_reviews.all %}
+        <ul class="reviews-list">
+            {% for review in driver.driver_reviews.all %}
+            <li class="review-item">
+                <p><strong>Клиент:</strong> {{ review.client.first_name }} {{ review.client.last_name }}</p>
+                <p><strong>Оценка:</strong> {{ review.rating }} ⭐</p>
+                <p>{{ review.comment }}</p>
+                <p><em>{{ review.created_at|date:"d.m.Y H:i" }}</em></p>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="no-reviews">Пока нет отзывов.</p>
+        {% endif %}
+    </div>
+</main>
+
+{% endblock %}

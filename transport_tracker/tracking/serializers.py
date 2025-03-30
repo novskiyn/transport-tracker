@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Vehicle, VehicleType, Trip, Route
+from .models import Vehicle, VehicleType, Trip, Route, CompanyReview
 
 class VehicleTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,3 +26,8 @@ class TripSerializer(serializers.ModelSerializer):
         if not driver.can_take_trip(data['departure_time'], data['arrival_time']):
             raise serializers.ValidationError("Водитель не может выполнить несколько маршрутов в одно и то же время.")
         return data          
+
+class CompanyReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CompanyReview
+        fields = '__all__'    

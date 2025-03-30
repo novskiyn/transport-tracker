@@ -9,10 +9,11 @@ class Driver(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     contact_number = models.CharField(max_length=15)
-    email = models.EmailField(max_length=100, null=True, blank=True)  # Добавлено поле email
+    email = models.EmailField(max_length=100, null=True, blank=True)
     rating = models.FloatField(default=0)
     review_count = models.PositiveIntegerField(default=0)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='driver_profile')
+    avatar = models.ImageField(upload_to='driver_avatars/', null=True, blank=True)  # Добавляем поле аватара
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -40,7 +41,7 @@ class Driver(models.Model):
 
 class DriverReview(models.Model):
     driver = models.ForeignKey(Driver, related_name='reviews', on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='driver_reviews', on_delete=models.CASCADE)
+    client = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='driver_reviews', on_delete=models.CASCADE)
     rating = models.IntegerField(choices=[(i, str(i)) for i in range(1, 6)])
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

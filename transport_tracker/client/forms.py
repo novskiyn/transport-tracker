@@ -1,5 +1,6 @@
 from django import forms
 from .models import Client, ClientReview
+from tracking.models import CompanyReview
 from django.contrib.auth.models import User
 
 # Форма для добавления или редактирования клиента
@@ -11,7 +12,7 @@ class ClientProfileForm(forms.ModelForm):
 class AvatarUpdateForm(forms.ModelForm):
     class Meta:
         model = Client
-        fields = ['avatar']        
+        fields = ['avatar']            
 
 # Форма для добавления или редактирования отзывов для клиента
 class ClientReviewForm(forms.ModelForm):
@@ -28,3 +29,8 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email']        
+
+class CompanyReviewForm(forms.ModelForm):
+    class Meta:
+        model = CompanyReview
+        fields = ['rating', 'review_text']
