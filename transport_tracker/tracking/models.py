@@ -1,6 +1,7 @@
 from django.db import models
 from django.apps import apps
-from django.contrib.auth.models import User
+from django.conf import settings
+from authentication.models import User
 from driver.models import Driver
 
 # Модели для маршрутов и поездок (Map App)
@@ -13,6 +14,18 @@ class Route(models.Model):
 
     def __str__(self):
         return self.name
+
+class CompanyReview(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="company_reviews")  # Используем AUTH_USER_MODEL
+    rating = models.PositiveSmallIntegerField(choices=[(i, i) for i in range(1, 6)])  # Рейтинг от 1 до 5
+    review_text = models.TextField(blank=True, null=True)  # Текст отзыва
+    created_at = models.DateTimeField(auto_now_add=True)  # Дата создания
+    
+    class Meta:
+        ordering = ['-created_at']  # Последние отзывы первыми
+    
+    def __str__(self):
+        return f"Отзыв {self.rating}⭐ от {self.user.username}"
 
 
 class Trip(models.Model):

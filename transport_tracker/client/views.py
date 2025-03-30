@@ -2,7 +2,7 @@ from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.pagination import PageNumberPagination
 from .models import Client, ClientReview
-from tracking.models import VehicleType
+from tracking.models import VehicleType, CompanyReview
 from .serializers import ClientSerializer, ClientReviewSerializer
 from rest_framework.permissions import IsAuthenticated
 from authentication.models import User
@@ -10,8 +10,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from .forms import ClientProfileForm, AvatarUpdateForm
+from .forms import ClientProfileForm, AvatarUpdateForm, CompanyReviewForm
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Пагинация для клиентов
@@ -83,19 +84,6 @@ def contact_page_client(request, user_id):
         return redirect_response
     return render(request, 'client/contact_page_client.html', {'client': client})
 
-# Представление страницы отзывов клиента
-@login_required
-def reviews_page_client(request, user_id):
-    client = get_object_or_404(Client, user__id=user_id)  # Одним запросом получаем клиента
-    reviews = ClientReview.objects.filter(client=client)  # Получаем все отзывы для клиента
-    redirect_response = check_client_permission(request, client)
-    if redirect_response:
-        return redirect_response
-    return render(request, 'client/reviews_page_client.html', {'client': client, 'reviews': reviews})
-
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth import update_session_auth_hash
-
 @login_required
 def profile_page_client(request, user_id):
     client = get_object_or_404(Client, user__id=user_id)
@@ -112,7 +100,15 @@ def profile_page_client(request, user_id):
         avatar_form = AvatarUpdateForm(request.POST, request.FILES, instance=client)
 
         if profile_form.is_valid():
-            profile_form.save()
+            client = profile_form.save(commit=False)  # Получаем объект, но не сохраняем его
+
+            # Обновляем данные пользователя
+            user = client.user
+            user.first_name = request.POST.get('first_name', user.first_name)
+            user.last_name = request.POST.get('last_name', user.last_name)
+            user.save()  # Сохраняем обновленные данные пользователя
+
+            client.save()  # Сохраняем профиль клиента
 
         if avatar_form.is_valid():
             avatar_form.save()
@@ -167,4 +163,73 @@ def history_page_client(request, user_id):
 def logout_user(request):
     logout(request)  # Выход из системы
     return redirect('login_page')    
+
+
+class CompanyReviewPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 50
+
+@login_required
+def reviews_page_client(request, user_id):
+    # Получаем клиента на основе текущего пользователя
+    client = get_object_or_404(Client, user__id=user_id)  # Одним запросом получаем клиента
+
+    # Проверяем разрешения для клиента
+    redirect_response = check_client_permission(request, client)
+    if redirect_response:
+        return redirect_response
+
+    # Получаем все отзывы о компании
+    company_reviews = CompanyReview.objects.all()
+
+    # Проверка, есть ли уже отзыв у текущего пользователя
+    existing_review = CompanyReview.objects.filter(user=request.user).first()
+
+    # Пагинация
+    paginator = Paginator(company_reviews, 5)  #  - количество отзывов на странице
+    page = request.GET.get('page')
+
+    try:
+        result_page = paginator.page(page)
+    except PageNotAnInteger:
+        result_page = paginator.page(1)
+    except EmptyPage:
+        result_page = paginator.page(paginator.num_pages)
+
+    # Обработка формы для добавления/редактирования отзыва
+    if request.method == 'POST':
+        if existing_review:  # Если отзыв уже существует, то редактируем его
+            review_form = CompanyReviewForm(request.POST, instance=existing_review)
+        else:  # Если отзыва нет, то создаем новый
+            review_form = CompanyReviewForm(request.POST)
+        
+        if review_form.is_valid():
+            review = review_form.save(commit=False)
+            review.user = request.user  # Связываем отзыв с текущим пользователем
+            review.save()
+            messages.success(request, "Ваш отзыв успешно сохранен!")
+            return redirect('reviews_page_client', user_id=user_id)
+    else:
+        # Если отзыв уже существует, загружаем его в форму для редактирования
+        if existing_review:
+            review_form = CompanyReviewForm(instance=existing_review)
+        else:
+            review_form = CompanyReviewForm()
+
+    # Удаление отзыва
+    if request.method == 'POST' and 'delete_review' in request.POST:
+        if existing_review:
+            existing_review.delete()
+            messages.success(request, "Ваш отзыв был удален!")
+            return redirect('reviews_page_client', user_id=user_id)
+
+    return render(request, 'client/reviews_page_client.html', {
+        'client': client,  # Передаем клиента в шаблон
+        'reviews': result_page,  # Передаем отзывы с пагинацией в шаблон
+        'review_form': review_form,  # Передаем форму для добавления/редактирования отзыва
+        'existing_review': existing_review  # Передаем информацию о существующем отзыве
+    })
+
+
 

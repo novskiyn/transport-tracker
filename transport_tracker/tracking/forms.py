@@ -1,5 +1,5 @@
 from django import forms
-from .models import Vehicle, VehicleType, Route, Trip
+from .models import Vehicle, VehicleType, Route, Trip, CompanyReview
 
 # Форма для добавления или редактирования транспортных средств
 class VehicleForm(forms.ModelForm):
@@ -22,3 +22,8 @@ class TripForm(forms.ModelForm):
     class Meta:
         model = Trip
         fields = ['vehicle', 'route', 'departure_time', 'arrival_time']        
+
+class CompanyReviewForm(forms.ModelForm):
+    class Meta:
+        model = CompanyReview
+        fields = ['rating', 'review_text']    

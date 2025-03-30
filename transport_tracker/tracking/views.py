@@ -3,8 +3,8 @@ from rest_framework import filters, viewsets
 from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated
-from .models import Vehicle, VehicleType, Route, Trip
-from .serializers import VehicleSerializer, VehicleTypeSerializer, RouteSerializer, TripSerializer
+from .models import Vehicle, VehicleType, Route, Trip, CompanyReview
+from .serializers import VehicleSerializer, VehicleTypeSerializer, RouteSerializer, TripSerializer, CompanyReviewSerializer
 
 # Пагинация для транспортных средств
 class VehiclePagination(PageNumberPagination):
@@ -67,3 +67,11 @@ class TripViewSet(viewsets.ModelViewSet):
     pagination_class = TripPagination
     permission_classes = [IsAuthenticated]
 
+class CompanyReviewViewSet(viewsets.ModelViewSet):
+    queryset = CompanyReview.objects.all()
+    serializer_class = CompanyReviewSerializer
+    filter_backends = (DjangoFilterBackend, filters.OrderingFilter)
+    filterset_fields = ['user', 'rating']
+    ordering_fields = ['created_at', 'rating']
+    ordering = ['-created_at']
+    permission_classes = [IsAuthenticated]
